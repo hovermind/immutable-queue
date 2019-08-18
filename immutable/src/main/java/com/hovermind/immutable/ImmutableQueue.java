@@ -43,7 +43,6 @@ public final class ImmutableQueue<T> implements Queue<T> {
 	 * 
 	 * @throws IllegalStateException
 	 */
-	@SuppressWarnings("unchecked")
 	public final Queue<T> deQueue() throws IllegalStateException {
 
 		if (isEmpty()) {
@@ -54,9 +53,9 @@ public final class ImmutableQueue<T> implements Queue<T> {
 		if (!stack.isEmpty()) {
 			return new ImmutableQueue<T>(stack, backStack);
 		} else if (backStack.isEmpty()) {
-			return ImmutableQueue.empty();
+			return ImmutableQueue.<T>empty();
 		} else {
-			return new ImmutableQueue<T>(reverse(backStack), (Stack<T>) ImmutableStack.empty());
+			return new ImmutableQueue<T>(reverse(backStack), ImmutableStack.<T>empty());
 		}
 	}
 
