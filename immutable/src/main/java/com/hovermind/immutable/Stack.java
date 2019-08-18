@@ -4,6 +4,7 @@ package com.hovermind.immutable;
  * Defines the interface of a jvm Stack ADT.
  * 
  * @author HASSAN MD TAREQ
+ * @see <a href="https://hovermind.com">hovermind.com</a>
  * 
  * @param <T> element type of the Stack
  */
