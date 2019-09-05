@@ -1,7 +1,7 @@
 package com.hovermind.immutable;
 
 /**
- * Immutable implementation of Stack ADT. Represents a first-in, first-out collection of objects. The purpose of this
+ * Immutable implementation of Stack ADT. Represents a last-in, first-out collection of objects. The purpose of this
  * class is to serve as ImmutableStack type for frontStack & backStack for ImmutableQueue
  * 
  * @author HASSAN MD TAREQ
