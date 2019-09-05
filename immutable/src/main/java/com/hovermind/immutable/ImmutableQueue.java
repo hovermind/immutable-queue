@@ -1,7 +1,7 @@
 package com.hovermind.immutable;
 
 /**
- * Immutable implementation of Queue ADT. Represents a variable size last-in-first-out (LIFO) collection of instances of
+ * Immutable implementation of Queue ADT. Represents a variable size first-in-first-out (FIFO) collection of instances of
  * the same specified type.
  * 
  * This uses two immutable stacks to keep track of the elements.
