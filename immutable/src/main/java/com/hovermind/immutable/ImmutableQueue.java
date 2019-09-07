@@ -18,15 +18,6 @@ public final class ImmutableQueue<T> implements Queue<T> {
 	private final Stack<T> backStack;
 
 	private ImmutableQueue(Stack<T> frontStack, Stack<T> backStack) {
-
-		if (frontStack == null) {
-			throw new IllegalArgumentException("frontStack");
-		}
-
-		if (backStack == null) {
-			throw new IllegalArgumentException("backStack");
-		}
-
 		this.frontStack = frontStack;
 		this.backStack = backStack;
 	}
@@ -35,7 +26,8 @@ public final class ImmutableQueue<T> implements Queue<T> {
 	 * {@inheritDoc}
 	 */
 	public final Queue<T> enQueue(T t) {
-		return new ImmutableQueue<T>(frontStack, backStack.push(t));
+		Stack<T> newBackStack = backStack.push(t);
+		return new ImmutableQueue<T>(frontStack, newBackStack);
 	}
 
 	/**
@@ -45,17 +37,15 @@ public final class ImmutableQueue<T> implements Queue<T> {
 	 */
 	public final Queue<T> deQueue() throws IllegalStateException {
 
-		if (isEmpty()) {
-			throw new IllegalStateException("Queue is empty.");
-		}
-
-		Stack<T> stack = frontStack.pop();
-		if (!stack.isEmpty()) {
-			return new ImmutableQueue<T>(stack, backStack);
+		Stack<T> newFrontStack = frontStack.pop();
+		if (!newFrontStack.isEmpty()) {
+			return new ImmutableQueue<T>(newFrontStack, backStack);
 		} else if (backStack.isEmpty()) {
 			return ImmutableQueue.<T>empty();
 		} else {
-			return new ImmutableQueue<T>(reverse(backStack), ImmutableStack.<T>empty());
+			newFrontStack = reverse(backStack);
+			Stack<T> newBackStack = ImmutableStack.<T>empty();
+			return new ImmutableQueue<T>(newFrontStack, newBackStack);
 		}
 	}
 
@@ -70,18 +60,17 @@ public final class ImmutableQueue<T> implements Queue<T> {
 	 * {@inheritDoc}
 	 */
 	public final boolean isEmpty() {
-		return frontStack.isEmpty() && backStack.isEmpty();
+		return false;
 	}
 
 	// Reverses the stack
 	private final Stack<T> reverse(Stack<T> stack) throws IllegalStateException {
-		Stack<T> result = ImmutableStack.empty();
-		Stack<T> cur = stack;
-		while (!cur.isEmpty()) {
-			result = result.push(cur.head());
-			cur = cur.pop();
+		Stack<T> reversed = ImmutableStack.empty();
+		while (!stack.isEmpty()) {
+			reversed = reversed.push(stack.head());
+			stack = stack.pop();
 		}
-		return result;
+		return reversed;
 	}
 
 	/**
